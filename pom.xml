@@ -11,8 +11,8 @@
     <groupId>pa.gob.dntic</groupId>
     <artifactId>arkalite</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ARKA-Lite</name>
-    <description>ARKA-Lite</description>
+    <name>arkalite</name>
+    <description>arkalite</description>
     <url/>
     <licenses>
         <license/>
@@ -27,7 +27,7 @@
         <url/>
     </scm>
     <properties>
-        <java.version>25</java.version>
+        <java.version>26</java.version>
     </properties>
     <dependencies>
         <dependency>

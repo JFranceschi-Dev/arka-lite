@@ -1,33 +1,21 @@
 package pa.gob.dntic.arkalite.notificaciones.dominio;
 
-
-import pa.gob.dntic.arkalite.solicitudes.dominio.RepositorioDeSolicitudes;
-import pa.gob.dntic.arkalite.solicitudes.dominio.Solicitud;
-
+import pa.gob.dntic.arkalite.eventos.SolicitudEnviada;
 import java.util.List;
 
+/* Dominio de Notificaciones. Reacciona al EVENTO, no al servicio de solicitudes. */
 public class ServicioDeNotificaciones {
+    private final RepositorioDeNotificaciones repositorio;
 
-    private final RepositorioDeNotificacion repositorio;
-
-    public ServicioDeNotificaciones(RepositorioDeNotificacion repositorio) {
+    public ServicioDeNotificaciones(RepositorioDeNotificaciones repositorio) {
         this.repositorio = repositorio;
     }
 
-    //se debe borrar ojo prueba
-    public List<Notificaciones> listar() {
+    public void alRecibirSolicitudEnviada(SolicitudEnviada e) {
+        repositorio.guardar(new Notificacion("Solicitud " + e.id() + " (" + e.tipo() + ") enviada"));
+    }
+
+    public List<Notificacion> listar() {
         return repositorio.todas();
     }
-
-    public void guardar(String name) {
-       repositorio.Publicar(name);
-    }
-
-//    public void alRecibirSolicitudEnviada(SolicitudEnviada e) {
-//        repositorio.guardar(new Notificacion("Solicitud " + e.id() + " (" + e.tipo() + ") enviada"));
-//    }
-
-
-
-
 }
