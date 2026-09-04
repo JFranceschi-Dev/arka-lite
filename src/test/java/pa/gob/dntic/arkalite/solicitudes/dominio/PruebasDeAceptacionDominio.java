@@ -22,6 +22,7 @@ package pa.gob.dntic.arkalite.solicitudes.dominio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pa.gob.dntic.arkalite.solicitudes.adaptadores.salida.RepositorioEnMemoria;
+import pa.gob.dntic.arkalite.transporte.BusDeEventosEnMemoria;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -33,7 +34,7 @@ class PruebasDeAceptacionDominio {
     @BeforeEach
     void setUp() {
         // El dominio se prueba solo: se le inyecta un adaptador en memoria, sin Spring.
-        servicio = new ServicioDeSolicitudes(new RepositorioEnMemoria());
+        servicio = new ServicioDeSolicitudes(new RepositorioEnMemoria(), new BusDeEventosEnMemoria());
     }
 
     @Test
@@ -106,8 +107,4 @@ class PruebasDeAceptacionDominio {
                 excepcion.getMessage()
         );
     }
-
-
-
 }
-
