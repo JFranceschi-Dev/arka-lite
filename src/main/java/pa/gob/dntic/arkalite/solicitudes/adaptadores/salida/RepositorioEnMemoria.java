@@ -5,28 +5,21 @@ import pa.gob.dntic.arkalite.solicitudes.dominio.RepositorioDeSolicitudes;
 import pa.gob.dntic.arkalite.solicitudes.dominio.Solicitud;
 import java.util.*;
 
-/*
- * ADAPTADOR de salida: cumple el PUERTO guardando en memoria.
- */
-
 @Repository("repositorioDeSolicitudesEnMemoria")
 public class RepositorioEnMemoria implements RepositorioDeSolicitudes {
 
-    // TODO: un Map para guardar las solicitudes por id
-
+    private final Map<String, Solicitud> almacen = new LinkedHashMap<>();
 
     public void guardar(Solicitud s) {
-        //TODO
-        throw new UnsupportedOperationException("TODO: guardar");
+        almacen.put(s.id(), s);
     }
 
     public Optional<Solicitud> buscar(String id) {
-        // TODO
-        throw new UnsupportedOperationException("TODO: buscar()");
+        return Optional.ofNullable(almacen.get(id));
     }
 
     public List<Solicitud> todas() {
-        // TODO
-        throw new UnsupportedOperationException("TODO: todas()");
+        return new ArrayList<>(almacen.values());
     }
+
 }
