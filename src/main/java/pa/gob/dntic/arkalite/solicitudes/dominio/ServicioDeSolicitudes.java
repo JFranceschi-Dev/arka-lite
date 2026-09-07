@@ -30,6 +30,20 @@ public class ServicioDeSolicitudes {
         return enviada;
     }
 
+    public Solicitud aprobar(String id) {
+        Solicitud request = buscar(id);
+        Solicitud aprobada = request.aprobar();
+        repositorio.guardar(aprobada);
+        return aprobada;
+    }
+
+    public Solicitud rechazar(String id) {
+        Solicitud request = buscar(id);
+        Solicitud rechazada = request.rechazar();
+        repositorio.guardar(rechazada);
+        return rechazada;
+    }
+
     public List<Solicitud> listar() { return repositorio.todas(); }
 
     public Solicitud buscar(String id) {

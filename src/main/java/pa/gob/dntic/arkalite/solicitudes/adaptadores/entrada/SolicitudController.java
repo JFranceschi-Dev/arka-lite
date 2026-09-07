@@ -11,6 +11,7 @@ import java.util.List;
  * no tiene lógica ni almacenamiento; solo llama al servicio.
  */
 @RestController
+@RequestMapping("/solicitudes")
 public class SolicitudController {
 
     private final ServicioDeSolicitudes servicio;
@@ -19,24 +20,34 @@ public class SolicitudController {
         this.servicio = servicio;
     }
 
-    @GetMapping("/solicitudes")
+    @GetMapping
     public List<Solicitud> todas() {
         return servicio.listar();
     }
 
-    @GetMapping("/solicitudes/{id}")
+    @GetMapping("/{id}")
     public Solicitud porId(@PathVariable String id) {
         return servicio.buscar(id);
     }
 
-    @PostMapping("solicitudes/crear")
+    @PostMapping("/crear")
     public Solicitud crearNueva() {
         Solicitud nueva = new Solicitud ("INC-002", "Incidencia", Estado.BORRADOR);
         return servicio.registrar(nueva.id(), nueva.tipo());
     }
 
-    @PostMapping("/solicitudes/{id}/enviar")
+    @PostMapping("/{id}/enviar")
     public Solicitud enviar(@PathVariable String id) {
         return servicio.enviar(id);
+    }
+
+    @PostMapping({"/{id}/aprobar"})
+    public Solicitud aprobar(@PathVariable String id) {
+        return servicio.aprobar(id);
+    }
+
+    @PostMapping({"/{id}/rechazar"})
+    public Solicitud rechazar(@PathVariable String id) {
+        return servicio.rechazar(id);
     }
 }
