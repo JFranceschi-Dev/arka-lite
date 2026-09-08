@@ -1,3 +1,6 @@
+
+#Dockerfile Multistage
+
 FROM eclipse-temurin:26-jdk
 WORKDIR /app
 COPY target/arkalite.jar app.jar
