@@ -13,5 +13,6 @@ services:
     ports: ["8080:8080"]
     environment:
       NOTIFICACIONES_URL: "http://servicio-notificaciones:8080/eventos/solicitud-enviada"
-      depends_on:
-        servicio-notificaciones: { condition: service_healthy }
+    depends_on:
+      servicio-notificaciones:
+          condition: service_healthy
