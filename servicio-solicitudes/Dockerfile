@@ -10,7 +10,7 @@ FROM eclipse-temurin:26-jre
 WORKDIR /app
 COPY --from=build /build/target/*.jar app.jar
 
-RUN useradd -r -n 1001 appuser1 && chown -R appuser1:appuser1 /app
+RUN useradd -r -u 1001 appuser1 && chown -R appuser1:appuser1 /app
 USER appuser1
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
