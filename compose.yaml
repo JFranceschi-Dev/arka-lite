@@ -1,0 +1,17 @@
+services:
+  servicio-notificaciones:
+    build: ./servicio-notificaciones
+    ports: ["8081:8080"]
+    healthcheck:
+      test: ["CMD-SHELL", "bash -lc 'echo > /dev/tcp/127.0.0.1/8080'"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  servicio-solicitudes:
+    build: ./servicio-solicitudes
+    ports: ["8080:8080"]
+    environment:
+      NOTIFICACIONES_URL: "http://servicio-notificaciones:8080/eventos/solicitud-enviada"
+      depends_on:
+        servicio-notificaciones: { condition: service_healthy }
