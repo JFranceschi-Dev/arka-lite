@@ -76,8 +76,13 @@ adaptador de entrada -> servicio/dominio <- adaptador de salida
 Comandos mínimos:
 
 ```powershell
-.\mvnw.cmd test
-.\mvnw.cmd package
+Push-Location servicio-solicitudes
+.\mvnw.cmd clean verify
+Pop-Location
+
+Push-Location servicio-notificaciones
+.\mvnw.cmd clean verify
+Pop-Location
 ```
 
 ## Registros y errores
@@ -93,7 +98,7 @@ Comandos mínimos:
 - Nunca confirmar secretos, llaves privadas, tokens ni credenciales, incluso en ejemplos.
 - Validar y limitar toda entrada externa.
 - Mantener dependencias e imagen base actualizadas mediante MRs revisados.
-- Ejecutar contenedores sin privilegios; el `Dockerfile` actual ya usa `appuser`.
+- Ejecutar contenedores sin privilegios; los Dockerfile actuales ya usan usuarios de aplicación sin privilegios.
 - Aplicar mínimo privilegio a cuentas, red y acceso a datos.
 - Revisar autenticación, autorización, CORS y protección de endpoints antes de exponer la aplicación.
 - Los hallazgos de seguridad no se incluyen completos en tickets o canales públicos si contienen detalles explotables.
@@ -108,7 +113,7 @@ Cuando se incorpore persistencia:
 - Definir transacciones en casos de uso, no en controladores.
 - Evitar consultas N+1 y medir antes de optimizar.
 
-Cuando el bus deje de ser en memoria:
+Si la llamada HTTP actual se reemplaza por mensajería:
 
 - Versionar contratos de eventos.
 - Diseñar consumidores idempotentes.
@@ -137,11 +142,13 @@ Cuando el bus deje de ser en memoria:
 Si el repositorio incorpora GitHub Actions, como mínimo debería:
 
 1. Compilar con la versión de Java establecida.
-2. Ejecutar `.\mvnw.cmd test`.
+2. Ejecutar `mvn verify` para `servicio-solicitudes` y `servicio-notificaciones`.
 3. Revisar formato/análisis estático cuando se configure.
 4. Analizar dependencias y secretos.
 5. Construir la imagen Docker para cambios que la afecten.
 6. Impedir el merge si una verificación requerida falla.
+
+La configuración propuesta está explicada en [Integración continua, ramas y ambientes](../automatizacion/ci-cd-y-ambientes.md).
 
 ## Lista antes de solicitar revisión
 

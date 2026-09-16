@@ -1,18 +1,81 @@
 # Documentación de ARKA-Lite
 
-Toda la documentación mantenida por el equipo vive en esta carpeta. Cuando un cambio modifique el comportamiento, la arquitectura, la forma de desplegar o el proceso de trabajo, la documentación relacionada debe actualizarse en el mismo Pull Request.
+La documentación está organizada por propósito para que una persona nueva pueda aprender el proyecto en orden, sin conocer previamente Java, Spring Boot, Docker o GitHub Actions.
 
-## Índice
+## Ruta recomendada de aprendizaje
 
-- [Descripción del proyecto](proyecto.md): propósito, tecnología, arquitectura, módulos, API y ejecución local.
-- [Instalación y depuración](instalacion-y-debug.md): JDK 26, Maven Wrapper, dependencias y configuración del depurador.
-- [Flujo de trabajo del equipo](flujo-de-trabajo.md): ramas, Pull Requests, revisión obligatoria y definición de terminado.
-- [Guía de Git](git.md): configuración y comandos de uso diario, colaboración, recuperación y versiones.
-- [Guía de Docker](docker.md): construcción, ejecución, puertos, diagnóstico y publicación de imágenes.
-- [Estándares de desarrollo](estandares-de-desarrollo.md): reglas para Java, Spring, arquitectura, pruebas, API y seguridad.
+1. Leer [Descripción del proyecto](inicio/proyecto.md) para conocer el objetivo, los microservicios, puertos y API.
+2. Seguir [Instalación y depuración](inicio/instalacion-y-debug.md) para preparar el equipo y levantar la solución.
+3. Estudiar [Componentes Java y ejecución](arquitectura/componentes-java.md) para entender clases, capas, Spring y el flujo entre servicios.
+4. Consultar [Docker y Docker Compose](operaciones/docker-y-compose.md) para comprender imágenes, contenedores y la red interna.
+5. Leer [Flujo de trabajo del equipo](desarrollo/flujo-de-trabajo.md) y [Guía de Git](desarrollo/git.md) antes de crear una rama o Pull Request.
+6. Revisar [GitHub Actions y archivos YAML](automatizacion/github-actions-yaml.md) para entender qué archivos reconoce GitHub.
+7. Continuar con [CI/CD, ramas y ambientes](automatizacion/ci-cd-y-ambientes.md) para diseñar la automatización futura.
+
+## Organización
+
+```text
+docs/
+├── README.md
+├── inicio/
+│   ├── README.md
+│   ├── proyecto.md
+│   └── instalacion-y-debug.md
+├── arquitectura/
+│   ├── README.md
+│   └── componentes-java.md
+├── desarrollo/
+│   ├── README.md
+│   ├── flujo-de-trabajo.md
+│   ├── git.md
+│   └── estandares-de-desarrollo.md
+├── operaciones/
+│   ├── README.md
+│   └── docker-y-compose.md
+└── automatizacion/
+    ├── README.md
+    ├── github-actions-yaml.md
+    └── ci-cd-y-ambientes.md
+```
+
+### Inicio
+
+Material para instalar, ejecutar y conocer el sistema por primera vez.
+
+- [Descripción del proyecto](inicio/proyecto.md)
+- [Instalación y depuración](inicio/instalacion-y-debug.md)
+
+### Arquitectura
+
+Diseño del código, componentes Java y comunicación entre microservicios.
+
+- [Componentes Java y ejecución](arquitectura/componentes-java.md)
+
+### Desarrollo
+
+Reglas para cambiar el código y colaborar con el equipo.
+
+- [Flujo de trabajo del equipo](desarrollo/flujo-de-trabajo.md)
+- [Guía de Git](desarrollo/git.md)
+- [Estándares de desarrollo](desarrollo/estandares-de-desarrollo.md)
+
+### Operaciones
+
+Construcción, ejecución y diagnóstico de la aplicación.
+
+- [Docker y Docker Compose](operaciones/docker-y-compose.md)
+
+### Automatización
+
+GitHub Actions, CI/CD, ramas, ambientes y otros archivos de GitHub.
+
+- [GitHub Actions y archivos YAML](automatizacion/github-actions-yaml.md)
+- [CI/CD, ramas y ambientes](automatizacion/ci-cd-y-ambientes.md)
 
 ## Regla de mantenimiento
 
-No se deben crear archivos de documentación fuera de `docs/`. Las excepciones son archivos técnicos exigidos por herramientas en la raíz, como `pom.xml`, `Dockerfile`, `.gitignore` y `.dockerignore`.
+Cada documento se guarda en la carpeta que corresponde a su uso. Cuando un cambio modifique comportamiento, arquitectura, ejecución, despliegue o proceso de trabajo, se actualiza la documentación relacionada en el mismo Pull Request.
 
-Los ejemplos de esta documentación asumen PowerShell en Windows. En Linux o macOS se usa `./mvnw` donde se indique `.\mvnw.cmd`.
+Los archivos técnicos requeridos por herramientas permanecen donde estas los esperan. Por ejemplo, `compose.yaml` vive en la raíz y los workflows futuros vivirán en `.github/workflows/`; no deben moverse a `docs/`.
+
+Los ejemplos usan PowerShell en Windows. En Linux o macOS se usa `./mvnw` donde se indique `.\mvnw.cmd`.
