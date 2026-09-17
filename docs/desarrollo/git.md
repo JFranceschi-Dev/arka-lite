@@ -242,17 +242,20 @@ Hay dos conceptos distintos:
 1. Cambiar la versión del artefacto Maven.
 2. Moverse a una versión histórica o etiquetar una entrega.
 
-Cambiar `pom.xml` con Maven Wrapper:
+Cada microservicio tiene una versión Maven independiente. Para cambiar la de solicitudes:
 
 ```powershell
+Push-Location servicio-solicitudes
 .\mvnw.cmd versions:set "-DnewVersion=1.2.0-SNAPSHOT"
 .\mvnw.cmd versions:commit
 
 # Si se necesita deshacer antes de versions:commit
 .\mvnw.cmd versions:revert
+Pop-Location
 ```
 
 El objetivo `versions:set` requiere el plugin Versions y puede descargarlo. Revisar el `pom.xml` modificado y probar antes de confirmar.
+Repetir el proceso desde `servicio-notificaciones` cuando ambos artefactos deban compartir la misma versión.
 
 Crear una versión Git anotada:
 
@@ -307,12 +310,23 @@ git submodule update --remote
 ```powershell
 git status --short --branch
 git diff
-.\mvnw.cmd test
+Push-Location servicio-solicitudes
+.\mvnw.cmd clean verify
+Pop-Location
+Push-Location servicio-notificaciones
+.\mvnw.cmd clean verify
+Pop-Location
 git add <rutas-intencionales>
 git diff --staged
 git commit -m "tipo: descripción"
 git fetch origin
 git rebase origin/main
-.\mvnw.cmd test
+Push-Location servicio-solicitudes
+.\mvnw.cmd clean verify
+Pop-Location
+Push-Location servicio-notificaciones
+.\mvnw.cmd clean verify
+Pop-Location
+docker compose config
 git push -u origin <rama>
 ```

@@ -25,6 +25,7 @@ El equipo utiliza estas ramas y prefijos:
 | `main` | Rama principal y estable. No se trabaja directamente sobre ella. | `main` |
 | `feat/` | Desarrollo de una nueva funcionalidad o mejora. | `feat/crear-solicitud` |
 | `fix/` | Corrección de un error. | `fix/error-al-enviar` |
+| `docs/` | Cambio exclusivo de documentación. | `docs/organizar-documentacion` |
 
 Después de `/`, escribir una descripción corta en minúsculas, sin espacios, tildes ni caracteres especiales. Separar las palabras con guiones.
 
@@ -34,7 +35,7 @@ Ejemplos correctos:
 | --- | --- |
 | Agregar un endpoint para crear solicitudes. | `feat/crear-solicitud` |
 | Agregar el módulo de notificaciones. | `feat/agregar-notificaciones` |
-| Incorporar documentación del proyecto. | `feat/documentacion-proyecto` |
+| Incorporar o reorganizar documentación sin cambiar código. | `docs/documentacion-proyecto` |
 | Corregir el error al enviar dos veces. | `fix/envio-duplicado` |
 | Corregir la respuesta cuando no existe una solicitud. | `fix/solicitud-no-encontrada` |
 | Corregir el puerto usado por Docker. | `fix/puerto-docker` |
@@ -84,6 +85,12 @@ Para una corrección:
 git switch -c fix/nombre-del-error
 ```
 
+Para un cambio exclusivo de documentación:
+
+```powershell
+git switch -c docs/nombre-del-cambio
+```
+
 La alternativa tradicional es:
 
 ```powershell
@@ -101,7 +108,14 @@ git branch --show-current
 ```powershell
 git status
 git diff
-.\mvnw.cmd test
+
+Push-Location servicio-solicitudes
+.\mvnw.cmd clean verify
+Pop-Location
+
+Push-Location servicio-notificaciones
+.\mvnw.cmd clean verify
+Pop-Location
 ```
 
 `git status` muestra qué archivos cambiaron. `git diff` permite revisar el contenido antes de prepararlo. Las pruebas deben ejecutarse antes de subir la rama.
@@ -333,7 +347,14 @@ git switch -c feat/nombre-del-cambio
 # Realizar los cambios
 git status
 git diff
-.\mvnw.cmd test
+
+Push-Location servicio-solicitudes
+.\mvnw.cmd clean verify
+Pop-Location
+
+Push-Location servicio-notificaciones
+.\mvnw.cmd clean verify
+Pop-Location
 git add ruta/al/archivo
 git diff --staged
 git commit -m "feat: describir el cambio"
