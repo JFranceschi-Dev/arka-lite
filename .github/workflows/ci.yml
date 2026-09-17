@@ -38,5 +38,5 @@ jobs:
         run: |
           REPO_LC=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           IMG=ghcr.io/REPO_LC/${{ matrix.servicio }}:${{ github.sha }}
-          docker build -t "IMG" .
+          docker build -t "$IMG" .
           docker push "$IMG"
