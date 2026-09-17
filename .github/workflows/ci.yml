@@ -3,6 +3,7 @@ name: CI-AB-Arkalitos
 # define las acciones que ejecutan el pipeline
 on:
   push:
+    branches: [ main ]
   pull_request:
 
 jobs:
