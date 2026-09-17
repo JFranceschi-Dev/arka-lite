@@ -3,7 +3,7 @@ name: CI-ARKA
 on:
   push:
   pull_request:
-
+    
 jobs:
   construir-probar-publicar:
     runs-on: ubuntu-latest
@@ -35,11 +35,11 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
+          
       - name: construir y publicar ${{ matrix.servicio }}
         working-directory: ${{ matrix.servicio }}
         run: |
           REPO_LC=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           IMG=ghcr.io/${{ github.repository }}/${{ matrix.servicio }}:${{ github.sha }}
-          docker build -t "$IMG"
+          docker build -t "$IMG" .
           docker push "$IMG"
