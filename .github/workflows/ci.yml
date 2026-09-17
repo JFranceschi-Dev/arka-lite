@@ -36,6 +36,6 @@ jobs:
         working-directory: ${{ matrix.servicio }}
         run: |
           REPO_RG=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-          IMG=ghcr.io/$REPO_LC/${{ matrix.servicio }}:${{ github.sha }}
+          IMG=ghcr.io/$REPO_RG/${{ matrix.servicio }}:${{ github.sha }}
           docker build -t "$IMG" .
           docker push "$IMG"
