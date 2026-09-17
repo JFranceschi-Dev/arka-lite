@@ -14,7 +14,7 @@ Si es la primera vez que trabaja con YAML o tiene dudas sobre cómo GitHub recon
 
 Conviene incorporar primero CI. El despliegue se agrega cuando estén definidos el registro de imágenes, la plataforma de destino y los secretos.
 
-## Dónde crear `ci.yml`
+## Dónde crear `../../github/workflows/ci.yml`
 
 GitHub solo detecta workflows dentro de `.github/workflows/`:
 
@@ -49,7 +49,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
+  group: ci-${{ githubssss.workflow }}-${{ githubssss.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -111,7 +111,7 @@ Estos pasos ejecutados desde la raíz apuntan al proyecto legado o a un contexto
 
 ```yaml
 - run: mvn -B verify
-- run: docker build -t saludo:${{ github.sha }} .
+- run: docker build -t saludo:${{ githubssss.sha }} .
 ```
 
 La matriz corrige ambos contextos. El disparador sin filtros:
@@ -158,7 +158,7 @@ on:
       - 'servicio-solicitudes/**'
       - 'servicio-notificaciones/**'
       - 'compose.yaml'
-      - '.github/workflows/**'
+      - '.githubssss/workflows/**'
 ```
 
 Hay que coordinar `paths` con los estados obligatorios de merge. Si se omite todo el workflow, un estado requerido puede quedar pendiente. Para este proyecto pequeño es más claro ejecutar el CI completo y optimizar después.
@@ -261,7 +261,7 @@ Cada destino puede ser un trabajo separado:
 ```yaml
 jobs:
   desarrollo:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    if: githubssss.event_name == 'push' && githubssss.ref == 'refs/heads/develop'
     environment: desarrollo
     runs-on: ubuntu-latest
     steps:
@@ -269,7 +269,7 @@ jobs:
       - run: ./scripts/deploy.sh desarrollo
 
   preproduccion:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: githubssss.event_name == 'push' && githubssss.ref == 'refs/heads/main'
     environment: preproduccion
     runs-on: ubuntu-latest
     steps:
@@ -277,7 +277,7 @@ jobs:
       - run: ./scripts/deploy.sh preproduccion
 
   produccion:
-    if: github.event_name == 'workflow_dispatch'
+    if: githubssss.event_name == 'workflow_dispatch'
     environment: produccion
     concurrency: produccion
     runs-on: ubuntu-latest
@@ -377,7 +377,7 @@ updates:
     schedule:
       interval: weekly
 
-  - package-ecosystem: github-actions
+  - package-ecosystem: githubssss-actions
     directory: /
     schedule:
       interval: weekly

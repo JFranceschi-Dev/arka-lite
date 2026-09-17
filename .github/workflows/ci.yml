@@ -1,4 +1,4 @@
- name: CI-ARKA
+name: CI-ARKA
 
 on:
   push:

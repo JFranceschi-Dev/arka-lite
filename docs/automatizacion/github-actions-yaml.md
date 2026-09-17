@@ -174,13 +174,13 @@ No hace falta crear todos los archivos desde el primer día. Se recomienda incor
 
 | Archivo futuro | Evento | Responsabilidad |
 | --- | --- | --- |
-| `ci.yml` | PR hacia `main`, push a `main`, manual | Verificar ambos Maven y construir ambas imágenes. |
+| `../../github/workflows/ci.yml` | PR hacia `main`, push a `main`, manual | Verificar ambos Maven y construir ambas imágenes. |
 | `seguridad.yml` | PR y horario semanal | Revisar dependencias, secretos e imágenes. |
 | `publicar-imagenes.yml` | Etiquetas `v*` o workflow reutilizable | Publicar imágenes identificadas por versión y SHA. |
 | `desplegar.yml` | Manual o ramas acordadas | Promover una imagen existente entre ambientes. |
 | `reutilizable-java.yml` | `workflow_call` | Centralizar pasos comunes si aparece duplicación real. |
 
-Para comenzar basta con `ci.yml`, documentado en [CI/CD, ramas y ambientes](ci-cd-y-ambientes.md). Separar seguridad, publicación y despliegue ayuda cuando tienen permisos, responsables y eventos diferentes.
+Para comenzar basta con `../../github/workflows/ci.yml`, documentado en [CI/CD, ramas y ambientes](ci-cd-y-ambientes.md). Separar seguridad, publicación y despliegue ayuda cuando tienen permisos, responsables y eventos diferentes.
 
 No conviene crear un workflow distinto por cada comando. Pasos relacionados pueden vivir dentro del mismo trabajo y trabajos relacionados dentro del mismo workflow.
 
@@ -219,7 +219,7 @@ GitHub crea una ejecución de `verificar` para cada valor de `matrix.servicio`. 
 Un workflow reutilizable también vive directamente en `.github/workflows/` y declara `workflow_call`:
 
 ```yaml
-# .github/workflows/reutilizable-java.yml
+# .githubssss/workflows/reutilizable-java.yml
 name: Verificar servicio Java
 
 on:
@@ -243,7 +243,7 @@ Otro workflow puede llamarlo:
 ```yaml
 jobs:
   solicitudes:
-    uses: ./.github/workflows/reutilizable-java.yml
+    uses: ./.githubssss/workflows/reutilizable-java.yml
     with:
       servicio: servicio-solicitudes
 ```
@@ -303,7 +303,7 @@ Un workflow la invoca como un paso:
 
 ```yaml
 - name: Preparar proyecto
-  uses: ./.github/actions/preparar-java
+  uses: ./.githubssss/actions/preparar-java
 ```
 
 Una acción agrupa pasos reutilizables dentro de un trabajo. Un workflow reutilizable puede agrupar trabajos completos. La [documentación de acciones personalizadas](https://docs.github.com/en/actions/concepts/workflows-and-actions/custom-actions) explica el archivo `action.yml`.
