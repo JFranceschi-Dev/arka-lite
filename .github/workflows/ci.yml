@@ -1,0 +1,35 @@
+name: CI-ARKA
+on:
+  push:
+  pull_request:
+jobs:
+  construir-probar-publicar:
+    runs-on: ubuntu-lastest
+    permissions: { contents: read, packages: write }
+
+    strategy:
+      matrix:
+        servicio: [ servicio-solicitudes, servicio-notificaciones ]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '26', cache: maven }
+
+      - name: Probar ${{ matrix.servicio}}
+        run: mvn -B verify
+        working-directory: ${{ matrix.servicio }}
+
+      - name: login al registro
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Construir y publicar ${{ matrix.servicio }}
+        working-directory: ${{ matrix.servicio }}
+        run: |
+          REPO_LC=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          IMG=ghcr.io/${{ github.repository }}/${{ matrix.servicio }}:${{ github.sha }}
+          docker build -t "$IMG" .
+          docker push "$IMG"
