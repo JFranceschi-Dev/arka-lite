@@ -29,6 +29,7 @@ jobs:
       - name: Construir y publicar ${{ matrix.servicio }}
         working-directory: ${{ matrix.servicio }}
         run: |
+          REPO_LC=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           IMG=ghcr.io/${{ github.repository }}/${{ matrix.servicio }}:${{ github.sha }}
           docker build -t "$IMG" .
           docker push "$IMG"
