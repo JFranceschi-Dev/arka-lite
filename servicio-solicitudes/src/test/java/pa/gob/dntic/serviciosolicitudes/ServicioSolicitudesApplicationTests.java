@@ -9,10 +9,4 @@ class ServicioSolicitudesApplicationTests {
     @Test
     void contextLoads() {
     }
-
-    @Test
-    void sumar2numero(){
-        assertEquals(5, 6-5);
-    }
-
 }
