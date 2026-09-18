@@ -4,7 +4,7 @@ on:
   pull_request:
 jobs:
   construir-probar-publicar:
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
     permissions: { contents: read, packages: write }
 
     strategy:
