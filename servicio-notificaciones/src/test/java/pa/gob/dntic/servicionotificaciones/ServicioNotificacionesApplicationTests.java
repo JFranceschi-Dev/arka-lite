@@ -2,6 +2,8 @@ package pa.gob.dntic.servicionotificaciones;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pa.gob.dntic.servicionotificaciones.adaptadores.entrada.ManejadorDeEventos;
+import pa.gob.dntic.servicionotificaciones.adaptadores.entrada.NotificacionController;
 import pa.gob.dntic.servicionotificaciones.adaptadores.salida.RepositorioEnMemoria;
 import pa.gob.dntic.servicionotificaciones.dominio.Notificacion;
 import pa.gob.dntic.servicionotificaciones.dominio.ServicioDeNotificaciones;
@@ -13,40 +15,43 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ServicioNotificacionesApplicationTests {
 
-    private ServicioDeNotificaciones servicio;
+    private ManejadorDeEventos manejador;
+    private NotificacionController controller;
 
     @BeforeEach
     void onBefore() {
-        servicio = new ServicioDeNotificaciones(new RepositorioEnMemoria());
+        ServicioDeNotificaciones servicio = new ServicioDeNotificaciones(new RepositorioEnMemoria());
+        manejador = new ManejadorDeEventos(servicio);
+        controller = new NotificacionController(servicio);
     }
 
     @Test
-    void givenUnaSolicitudEnviada_whenSeRecibeElEvento_thenSeGuardaLaNotificacionEsperada() {
-        SolicitudEnviada evento = new SolicitudEnviada("SOL-001", "Incidencia");
+    void givenUnEventoCuandoSeManeja_thenSeGeneraLaNotificacion() {
+        manejador.manejar(new SolicitudEnviada("SOL-100", "Incidencia"));
 
-        servicio.alRecibirSolicitudEnviada(evento);
+        List<Notificacion> notificaciones = controller.todas();
 
-        List<Notificacion> notificaciones = servicio.listar();
         assertEquals(1, notificaciones.size());
-        assertEquals("Solicitud SOL-001 (Incidencia) enviada", notificaciones.getFirst().texto());
+        assertEquals("Solicitud SOL-100 (Incidencia) enviada", notificaciones.getFirst().texto());
     }
 
     @Test
-    void givenDosSolicitudesEnviadas_whenSeListanLasNotificaciones_thenDevuelvenAmbas() {
-        servicio.alRecibirSolicitudEnviada(new SolicitudEnviada("SOL-001", "Incidencia"));
-        servicio.alRecibirSolicitudEnviada(new SolicitudEnviada("SOL-002", "Cambio"));
+    void givenDosEventosCuandoSeReciben_thenSeListanLasDosNotificaciones() {
+        manejador.manejar(new SolicitudEnviada("SOL-101", "Cambio"));
+        manejador.manejar(new SolicitudEnviada("SOL-102", "Reclamo"));
 
-        List<Notificacion> notificaciones = servicio.listar();
+        List<Notificacion> notificaciones = controller.todas();
 
         assertEquals(2, notificaciones.size());
-        assertEquals("Solicitud SOL-001 (Incidencia) enviada", notificaciones.get(0).texto());
-        assertEquals("Solicitud SOL-002 (Cambio) enviada", notificaciones.get(1).texto());
+        assertEquals("Solicitud SOL-101 (Cambio) enviada", notificaciones.get(0).texto());
+        assertEquals("Solicitud SOL-102 (Reclamo) enviada", notificaciones.get(1).texto());
     }
 
     @Test
-    void givenUnaSolicitudEnviadaCuandoSeProcesaElEvento_thenLaNotificacionIncluyeElIdYTipo() {
-        servicio.alRecibirSolicitudEnviada(new SolicitudEnviada("SOL-003", "Reclamo"));
+    void givenListaVacia_whenSeConsultaNotificaciones_thenDevuelveListaVacia() {
+        List<Notificacion> notificaciones = controller.todas();
 
-        assertEquals("Solicitud SOL-003 (Reclamo) enviada", servicio.listar().getFirst().texto());
+        assertEquals(0, notificaciones.size());
     }
 }
+
