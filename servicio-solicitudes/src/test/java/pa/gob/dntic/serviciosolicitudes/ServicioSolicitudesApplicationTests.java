@@ -33,7 +33,7 @@ class ServicioSolicitudesApplicationTests {
     @Test
     void givenUnaSolicitudEnBorrador_whenSeEnvia_thenQuedaEnviadaYPublicaEvento() {
         servicio.registrar("SOL-001", "Incidencia");
-        throw new exception("Error de prueba"); // Simula un error para probar el manejo de excepciones
+        //throw new exception("Error de prueba"); // Simula un error para probar el manejo de excepciones
         Solicitud enviada = servicio.enviar("SOL-001");
 
         assertEquals(Estado.ENVIADA, enviada.estado());
