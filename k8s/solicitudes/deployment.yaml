@@ -13,7 +13,7 @@ spec:
         app: servicio-solicitudes
     spec:
       containers:
-        - name: servicio-solicitudes-1
+        - name: servicio-solicitudes
           image: arka-lite-servicio-solicitudes:latest
           imagePullPolicy: IfNotPresent
           ports:
@@ -21,11 +21,3 @@ spec:
           env:
             - name: NOTIFICACIONES_URL
               value: "http://servicio-notificaciones:8080/eventos/solicitud-enviada"
-
-          readinessProbe:
-            httpGet: { path: /, port: 8080 }
-            initialDelaySeconds: 5
-            periodSeconds: 5
-          livenessProbe:
-            httpGet: { path: /, port: 8080 }
-            periodSeconds: 10
