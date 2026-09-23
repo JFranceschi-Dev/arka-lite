@@ -13,7 +13,7 @@ spec:
         app: servicio-solicitudes
     spec:
       containers:
-        - name: servicio-solicitudes
+        - name: servicio-solicitudes-1
           image: arka-lite-servicio-solicitudes:latest
           imagePullPolicy: IfNotPresent
           ports:
