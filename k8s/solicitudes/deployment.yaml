@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: servicio-solicitudes
-          image: arka-lite-servicio-solicitudes:latest
+          image: servicio-solicitudes:local
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
