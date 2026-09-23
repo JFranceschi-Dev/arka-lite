@@ -31,7 +31,9 @@ docs/
 │   └── estandares-de-desarrollo.md
 ├── operaciones/
 │   ├── README.md
-│   └── docker-y-compose.md
+│   ├── docker-y-compose.md
+│   ├── kubernetes-local.md
+│   └── kubernetes-limpieza.md
 └── automatizacion/
     ├── README.md
     ├── github-actions-yaml.md
@@ -64,6 +66,8 @@ Reglas para cambiar el código y colaborar con el equipo.
 Construcción, ejecución y diagnóstico de la aplicación.
 
 - [Docker y Docker Compose](operaciones/docker-y-compose.md)
+- [Kubernetes local con Docker Desktop](operaciones/kubernetes-local.md)
+- [Limpieza de Kubernetes local](operaciones/kubernetes-limpieza.md)
 
 ### Automatización
 

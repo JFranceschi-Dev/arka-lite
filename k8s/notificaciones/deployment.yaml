@@ -14,13 +14,7 @@ spec:
     spec:
       containers:
         - name: servicio-notificaciones
-          image: arka-lite-servicio-notificaciones:latest
+          image: servicio-notificaciones:local
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
-  #          readinessProbe:
-  #            httpGet: {path: /, port:80}
-  #            initialDelaySeconds: 5
-  #          livenessProbe:
-  #            httpGet: {path: /, port:80}
-  #            periodSeconds: 10
-

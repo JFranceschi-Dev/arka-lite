@@ -308,7 +308,7 @@ Cada `pom.xml` declara Java 26, Spring Boot 4.1.1 y el plugin `spring-boot-maven
 | Dependencia | Servicio | Función |
 | --- | --- | --- |
 | `spring-boot-starter-webmvc` | Ambos | Servidor HTTP, controladores, conversión JSON y cliente `RestClient`. |
-| `springdoc-openapi-starter-webmvc-ui` | Solicitudes | Genera OpenAPI y Swagger UI. |
+| `springdoc-openapi-starter-webmvc-ui` | Ambos | Genera OpenAPI y Swagger UI. |
 | `spring-boot-starter-webmvc-test` | Ambos, alcance de prueba | Proporciona JUnit y soporte de pruebas para Spring MVC. |
 
 El Maven Wrapper (`mvnw` o `mvnw.cmd`) descarga y ejecuta la versión Maven configurada por el proyecto. `spring-boot-maven-plugin` vuelve ejecutable el JAR producido por `package`.

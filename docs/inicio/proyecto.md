@@ -39,7 +39,7 @@ El `pom.xml`, `src/`, `mvnw`, `mvnw.cmd` y `.mvn/` de la raíz pertenecen al mon
 - Spring Boot 4.1.1.
 - Maven 3.9.16 mediante Maven Wrapper.
 - Spring Web MVC para las API HTTP.
-- Springdoc OpenAPI en `servicio-solicitudes`.
+- Springdoc OpenAPI (Swagger UI) en ambos servicios.
 - JUnit mediante el starter de pruebas de Spring Boot.
 - Docker con compilación de varias etapas.
 - Docker Compose para ejecutar ambos servicios y su red.
@@ -102,6 +102,8 @@ Swagger UI está disponible en `http://localhost:8080/swagger-ui/index.html` y O
 | --- | --- | --- |
 | `POST` | `/eventos/solicitud-enviada` | Recibe el evento enviado por solicitudes. |
 | `GET` | `/notificaciones` | Lista las notificaciones guardadas. |
+
+Swagger UI está disponible en `http://localhost:8081/swagger-ui/index.html` y OpenAPI JSON en `http://localhost:8081/v3/api-docs`.
 
 El endpoint de eventos es parte de la comunicación interna. Normalmente un usuario no lo llama directamente.
 
