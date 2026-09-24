@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicio-notificaciones
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servicio-notificaciones
+  template:
+    metadata:
+      labels:
+        app: servicio-notificaciones
+    spec:
+      containers:
+        - name: servicio-notificaciones
+          image: servicio-notificaciones:jossett
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet: { path: /notificaciones, port: 8080 }
+            initialDelaySeconds: 3
+            periodSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicio-notificaciones
+spec:
+  selector:
+    app: servicio-notificaciones #enruta a los pods con esta etiqueta
+  ports:
+    - port: 8080
+      targetPort: 8080
